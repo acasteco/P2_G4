@@ -12,8 +12,8 @@ add() -> (copia del elemento)
 addBasics() -> (vuelve a añadir los elementos primarios)
 deleteElement() -> (borra elemento y posicion de memoriua que ocupaba)
 info(posicion elemento) -> abre pagina de wikipedia
-sort() -> se ordena el vector automaticamente
-clean() -> elimina los elementos repetidos
+sort() -> se ordena el vector alafabeticamente
+clean() -> elimina los elementos repetidos (set -> estructura de datos no repetidos sin key que no añade elementos repetidos)
 help() -> muestra un tutorial con todas las acciones que puede hacer el jugador
 
 private:
@@ -22,3 +22,21 @@ vector para almacenar los elementos creados
 
 }
 */
+
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <unordered_map>
+
+int main() {
+	std::ifstream fentrada("elements.dat");
+	if (fentrada.is_open()) {
+		std::unordered_map<std::pair<std::string, std::string>, std::string> elements;
+		std::string linia;
+
+		while (getline(fentrada, linia)) {
+
+		}
+		//elements[key1, key2] = {value};
+	}
+}
