@@ -26,12 +26,22 @@ vector para almacenar los elementos creados
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <map>
+#include <unordered_map>
 
+
+//definimos el template hash para el tipo pair
+template <>
+struct std::hash<std::pair<std::string, std::string>>
+{
+	size_t operator()(const std::pair<std::string, std::string> &p) const {
+		return ((hash<std::string>()(p.first)
+			^ (hash<std::string>()(p.second) << 1)) >> 1);
+	}
+};
 int main() {
 	std::ifstream fentrada("elements.dat");
 	if (fentrada.is_open()) {
-		std::map<std::pair<std::string, std::string>, std::string> elements;
+		std::unordered_map<std::pair<std::string, std::string>, std::string> elements;
 		//std::unordered_map<std::string, std::string>elements;
 		
 		//char linia[50];
@@ -43,7 +53,7 @@ int main() {
 			//std::cout << linia << std::endl;
 			for (int i = 0; i < linia.size(); i++) {
 				if (!v) {
-					if (linia.at(i) != ' ')
+					if (linia.at(i) != ' ' && linia.at(i+1) != '=')
 						value.push_back(linia.at(i));
 					else {
 						v = true;
@@ -52,7 +62,7 @@ int main() {
 				}
 
 				else if (!k1) {
-					if (linia.at(i) != ' ')
+					if (linia.at(i) != ' ' && linia.at(i + 1) != '+')
 						key1.push_back(linia.at(i));
 					else {
 						k1 = true;
@@ -69,7 +79,10 @@ int main() {
 			keys = std::make_pair(key1, key2);
 			elements[keys] = { value };
 		}
-		for (auto it = elements.begin(); it != elements.end(); ++it)
-			std::cout << it->first <<;
+		for (auto it = elements.begin(); it != elements.end(); ++it) {
+			std::cout << it->second << "->" << it->first.first << it->first.second << std::endl;
+			
+		}
+			
 	}
 }
