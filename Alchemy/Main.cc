@@ -26,17 +26,50 @@ vector para almacenar los elementos creados
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <unordered_map>
+#include <map>
 
 int main() {
 	std::ifstream fentrada("elements.dat");
 	if (fentrada.is_open()) {
-		std::unordered_map<std::pair<std::string, std::string>, std::string> elements;
-		std::string linia;
+		std::map<std::pair<std::string, std::string>, std::string> elements;
+		//std::unordered_map<std::string, std::string>elements;
+		
+		//char linia[50];
+		
+		while (!fentrada.eof()) {
+			std::string linia, key1, key2, value;
+			bool k1 = false, k2 = false, v = false;
+			getline(fentrada, linia);
+			//std::cout << linia << std::endl;
+			for (int i = 0; i < linia.size(); i++) {
+				if (!v) {
+					if (linia.at(i) != ' ')
+						value.push_back(linia.at(i));
+					else {
+						v = true;
+						i += 2;
+					}
+				}
 
-		while (getline(fentrada, linia)) {
-
+				else if (!k1) {
+					if (linia.at(i) != ' ')
+						key1.push_back(linia.at(i));
+					else {
+						k1 = true;
+						i += 2;
+					}
+				}
+				else if (!k2) {
+					//if (linia.at(i) != linia.at(linia.size()))
+					key2.push_back(linia.at(i));
+				}
+			}
+			//elements[key1, key2] = {value};
+			std::pair<std::string, std::string> keys;
+			keys = std::make_pair(key1, key2);
+			elements[keys] = { value };
 		}
-		//elements[key1, key2] = {value};
+		for (auto it = elements.begin(); it != elements.end(); ++it)
+			std::cout << it->first <<;
 	}
 }
