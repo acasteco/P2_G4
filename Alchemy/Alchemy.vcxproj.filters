@@ -18,8 +18,22 @@
     <ClCompile Include="Main.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Elements.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="elements.dat" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Player.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Elements.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

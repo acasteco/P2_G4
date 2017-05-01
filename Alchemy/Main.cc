@@ -22,67 +22,39 @@ vector para almacenar los elementos creados
 
 }
 */
-
-#include <fstream>
+#include "Elements.hh"
+#include "Player.hh"
 #include <iostream>
 #include <string>
-#include <unordered_map>
 
 
-//definimos el template hash para el tipo pair
-template <>
-struct std::hash<std::pair<std::string, std::string>>
-{
-	size_t operator()(const std::pair<std::string, std::string> &p) const {
-		return ((hash<std::string>()(p.first)
-			^ (hash<std::string>()(p.second) << 1)) >> 1);
-	}
-};
+
+
 int main() {
-	std::ifstream fentrada("elements.dat");
-	if (fentrada.is_open()) {
-		std::unordered_map<std::pair<std::string, std::string>, std::string> elements;
-		//std::unordered_map<std::string, std::string>elements;
-		
-		//char linia[50];
-		
-		while (!fentrada.eof()) {
-			std::string linia, key1, key2, value;
-			bool k1 = false, k2 = false, v = false;
-			getline(fentrada, linia);
-			//std::cout << linia << std::endl;
-			for (int i = 0; i < linia.size(); i++) {
-				if (!v) {
-					if (linia.at(i) != ' ' && linia.at(i+1) != '=')
-						value.push_back(linia.at(i));
-					else {
-						v = true;
-						i += 2;
-					}
-				}
+	std::cout << "-------------------------" << std::endl;
+	std::cout << "FULLENTI ALCHEMIST" << std::endl;
+	std::cout << "-------------------------" << std::endl;
 
-				else if (!k1) {
-					if (linia.at(i) != ' ' && linia.at(i + 1) != '+')
-						key1.push_back(linia.at(i));
-					else {
-						k1 = true;
-						i += 2;
-					}
-				}
-				else if (!k2) {
-					//if (linia.at(i) != linia.at(linia.size()))
-					key2.push_back(linia.at(i));
-				}
-			}
-			//elements[key1, key2] = {value};
-			std::pair<std::string, std::string> keys;
-			keys = std::make_pair(key1, key2);
-			elements[keys] = { value };
-		}
-		for (auto it = elements.begin(); it != elements.end(); ++it) {
-			std::cout << it->second << "->" << it->first.first << it->first.second << std::endl;
-			
-		}
-			
-	}
+	//Elements elem;
+	//elem.printElements();
+	Player player;
+	player.help();
+	player.printPlayerElements();
+	player.printScore();
+	system("PAUSE");
+	system("cls");
+	player.combine(0, 2);
+	player.printScore();
+	player.addBasics();
+	player.add(2);
+	player.printPlayerElements();
+	system("PAUSE");
+	system("cls");
+	//player.sort();
+	player.clean();
+	player.printScore();
+	player.printPlayerElements();
+	
+	return 0;
+
 }
