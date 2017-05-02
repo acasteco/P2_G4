@@ -27,6 +27,7 @@ vector para almacenar los elementos creados
 #include <iostream>
 #include <string>
 
+const int POSSIBLE_COMBINATIONS = 395;
 
 
 
@@ -39,7 +40,7 @@ int main() {
 	std::cout << "-------------------------" << std::endl;
 	player.help();
 
-	while (true) {
+	while (player.getScore() < POSSIBLE_COMBINATIONS) {
 		player.printScore();
 		player.printPlayerElements();
 		std::cin >> playerAction;
@@ -94,5 +95,8 @@ int main() {
 		}
 		std::cin.ignore(256, '\n');
 	}
+
+	std::cout << "WINNER WINNER, CHICKEN DINNER!" << std::endl;
+	system("PAUSE");
 	return 0;
 }

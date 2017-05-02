@@ -24,6 +24,7 @@ public:
 
 	void printPlayerElements();
 	void printScore();				//puntuacao
+	int getScore();
 	bool newElement(std::string aux);
 	int playerElementsSIZE();
 private:

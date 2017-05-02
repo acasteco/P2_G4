@@ -103,6 +103,11 @@ void Player::printScore()
 	std::cout << "Score: " << score << std::endl;
 }
 
+int Player::getScore()
+{
+	return score;
+}
+
 bool Player::newElement(std::string aux)
 {
 	if (elementsFound.find(aux) != elementsFound.end() || elementsFound.size() == 0) {
