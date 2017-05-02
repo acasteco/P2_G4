@@ -19,12 +19,13 @@ public:
 	void deleteElement(int el);
 	void sort();
 	void clean();
-	void info();
+	void info(int aux);
 	void help();
 
 	void printPlayerElements();
 	void printScore();				//puntuacao
 	bool newElement(std::string aux);
+	int playerElementsSIZE();
 private:
 	Elements elements;
 	int score;

@@ -18,12 +18,14 @@ void Player::combine(int k1, int k2)
 	
 	if (aux == "noValue")
 		std::cout << "No existe esta combinacion" << std::endl;
-	else if (newElement(aux)) {
-			playerElements.push_back(aux);
-			deleteElement(k1);
-			deleteElement(k2);
+	else {
+		if (newElement(aux)) {
 			std::cout << "New Element Discovered: " << aux << std::endl;
 			score++;
+		}
+		playerElements.insert(playerElements.end(), aux);
+		playerElements.erase(playerElements.begin() + k1);
+		playerElements.erase(playerElements.begin() + k2 - 1);
 	}
 }
 
@@ -42,7 +44,7 @@ void Player::add(int el)
 
 void Player::deleteElement(int el)
 {
-	playerElements.erase(playerElements.begin() + el);
+	playerElements.erase(playerElements.begin() + (el-1));
 }
 
 void Player::sort()
@@ -63,14 +65,12 @@ void Player::clean()
 	aux.clear();
 }
 
-void Player::info()
+void Player::info(int aux)
 {
-	std::string wiki = "https://es.wikipedia.org/wiki/";
-	int aux;
-	std::cin >> aux;
+	std::string wiki = "https://en.wikipedia.org/wiki/";
 	std::string url;
 	url.operator+=(wiki);
-	url.operator+=(playerElements[aux - 1]);
+	url.operator+=(playerElements[aux]);
 
 	ShellExecuteA(nullptr, "open", url.c_str(), nullptr, nullptr, SW_SHOWNORMAL);
 }
@@ -79,7 +79,7 @@ void Player::help()
 {
 	std::cout << "- Enter two numbers of your elements list to combine them." << std::endl;
 	std::cout << "- Enter the word 'add' and the number of an element to add a new instance of that element." << std::endl;
-	std::cout << "- Enter 'add basics' to add new instances  of the 4 basics elements " << std::endl;
+	std::cout << "- Enter 'addBasics' to add new instances  of the 4 basics elements " << std::endl;
 	std::cout << "- Enter the word 'delete' and the number of an element to erase it from your list." << std::endl;
 	std::cout << "- Enter the word 'info' and the number of an element to get information about it in the explorer." << std::endl;
 	std::cout << "- Enter the word 'sort' to sort by alphabetical order the elements in the list. " << std::endl;
@@ -105,13 +105,15 @@ void Player::printScore()
 
 bool Player::newElement(std::string aux)
 {
-	if (elementsFound.size() == 0) {
+	if (elementsFound.find(aux) != elementsFound.end() || elementsFound.size() == 0) {
+		elementsFound.insert(aux);
 		return true;
 	}
-	else {
-		if (elementsFound.find(aux) != elementsFound.end())
-			return true;
-		else
-			return false;
-	}
+	else
+		return false;
+}
+
+int Player::playerElementsSIZE()
+{
+	return playerElements.size();
 }

@@ -31,30 +31,68 @@ vector para almacenar los elementos creados
 
 
 int main() {
+	Player player;
+	std::string playerAction;
+
 	std::cout << "-------------------------" << std::endl;
 	std::cout << "FULLENTI ALCHEMIST" << std::endl;
 	std::cout << "-------------------------" << std::endl;
-
-	//Elements elem;
-	//elem.printElements();
-	Player player;
 	player.help();
-	player.printPlayerElements();
-	player.printScore();
-	system("PAUSE");
-	system("cls");
-	player.combine(0, 2);
-	player.printScore();
-	player.addBasics();
-	player.add(2);
-	player.printPlayerElements();
-	system("PAUSE");
-	system("cls");
-	//player.sort();
-	player.clean();
-	player.printScore();
-	player.printPlayerElements();
-	
-	return 0;
 
+	while (true) {
+		player.printScore();
+		player.printPlayerElements();
+		std::cin >> playerAction;
+		system("cls");
+
+		if (playerAction == "add") {
+			int aux;
+			std::cin >> aux;
+			if (aux > 0 && aux < player.playerElementsSIZE()+1)
+				player.add(aux - 1);
+			else
+				std::cout << "expression out of bounds" << std::endl;
+		}
+		else if (playerAction == "addBasics" || playerAction == "addbasics") {
+			player.addBasics();
+		}
+		else if (playerAction == "delete") {
+			int aux;
+			std::cin >> aux;
+			if (aux > 0 && aux < player.playerElementsSIZE()+1)
+				player.deleteElement(aux-1);
+			else
+				std::cout << "expression out of bounds" << std::endl;
+		}
+		else if (playerAction == "info") {
+			int aux;
+			std::cin >> aux;
+			if (aux > 0 && aux < player.playerElementsSIZE()+1)
+				player.info(aux-1);
+			else
+				std::cout << "expression out of bounds" << std::endl;
+			
+		}
+		else if (playerAction == "sort") {
+			player.sort();
+		}
+		else if (playerAction == "clean") {
+			player.clean();
+		}
+		else if (playerAction == "help") {
+			player.help();
+			//system("PAUSE");
+		}
+		else {
+			int value = atoi(playerAction.c_str());
+			int aux;
+			std::cin >> aux;
+			if (aux > 0 && aux < player.playerElementsSIZE() + 1 && value > 0 && value < player.playerElementsSIZE() + 1)
+				player.combine(value - 1, aux - 1);
+			else
+				std::cout << "expression out of bounds" << std::endl;
+		}
+		std::cin.ignore(256, '\n');
+	}
+	return 0;
 }
