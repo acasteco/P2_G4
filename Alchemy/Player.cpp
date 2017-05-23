@@ -13,7 +13,15 @@ Player::~Player()
 
 void Player::combine(int k1, int k2)
 {
-
+	if (k1 > k2) {
+		int temp = k1;
+		k1 = k2;
+		k2 = temp;
+	}
+	if (k1 == k2) {
+		std::cout << "No puedes combinar un elemento consigo mismo" << std::endl;
+		return;
+	}
 	std::string aux = elements.searchValue(playerElements[k1], playerElements[k2]);
 	
 	if (aux == "noValue")
@@ -44,7 +52,7 @@ void Player::add(int el)
 
 void Player::deleteElement(int el)
 {
-	playerElements.erase(playerElements.begin() + (el-1));
+	playerElements.erase(playerElements.begin() + (el));
 }
 
 void Player::sort()
