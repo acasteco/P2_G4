@@ -29,7 +29,7 @@ vector para almacenar los elementos creados
 
 const int POSSIBLE_COMBINATIONS = 395;
 
-
+//bool isNumber()
 
 int main() {
 	Player player;
@@ -43,13 +43,15 @@ int main() {
 	while (player.getScore() < POSSIBLE_COMBINATIONS) {
 		player.printScore();
 		player.printPlayerElements();
+		std::cin.ignore(std::cin.rdbuf()->in_avail(), '\n');
+		std::cin.clear();
 		std::cin >> playerAction;
 		system("cls");
 
 		if (playerAction == "add") {
 			int aux;
 			std::cin >> aux;
-			if (aux > 0 && aux < player.playerElementsSIZE()+1)
+			if (aux > 0 && aux < player.playerElementsSIZE()+1  )
 				player.add(aux - 1);
 			else
 				std::cout << "expression out of bounds" << std::endl;
@@ -86,14 +88,19 @@ int main() {
 		}
 		else {
 			int value = atoi(playerAction.c_str());
-			int aux;
-			std::cin >> aux;
-			if (aux > 0 && aux < player.playerElementsSIZE() + 1 && value > 0 && value < player.playerElementsSIZE() + 1)
-				player.combine(value - 1, aux - 1);
+			if (value > 0 && value < player.playerElementsSIZE() + 1 && value > 0 && value < player.playerElementsSIZE() + 1) {
+				int aux;
+				std::cin >> aux;
+				if (aux > 0 && aux < player.playerElementsSIZE() + 1 && value > 0 && value < player.playerElementsSIZE() + 1)
+					player.combine(value - 1, aux - 1);
+				else
+					std::cout << "expression out of bounds" << std::endl;
+			}
+			
 			else
-				std::cout << "expression out of bounds" << std::endl;
+				std::cout << "Not Recognised expresion" << std::endl;
 		}
-		std::cin.ignore(256, '\n');
+		
 	}
 
 	std::cout << "WINNER WINNER, CHICKEN DINNER!" << std::endl;
