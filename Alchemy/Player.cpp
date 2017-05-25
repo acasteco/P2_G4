@@ -53,6 +53,8 @@ void Player::add(int el)
 void Player::deleteElement(int el)
 {
 	playerElements.erase(playerElements.begin() + (el));
+	if (playerElements.size() == 0)
+		addBasics();
 }
 
 void Player::sort()
